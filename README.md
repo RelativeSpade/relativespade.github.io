@@ -1,4 +1,4 @@
-# noob-web
+# spade
  My first website written in html and css
 
- Url: [imxnoobx.xyz](https://imxnoobx.github.io)
+ Url: [spade.xyz](https://spade.github.io/
