@@ -53,27 +53,102 @@
   .game-stat-label { color: var(--muted); }
   .game-stat-val { font-family: var(--mono); font-size: 12px; color: var(--accent); }
   .featured-tag { position: absolute; top: 1.5rem; right: 1.75rem; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; background: var(--accent-dim); color: var(--accent); padding: 2px 8px; }
-  .showreel-placeholder { background: var(--surface); border: 1px dashed var(--border-accent); padding: 3rem 2rem; text-align: center; }
-  .showreel-placeholder p { color: var(--muted2); font-size: 14px; font-family: var(--mono); letter-spacing: 0.05em; }
-  .showreel-placeholder strong { display: block; font-size: 12px; margin-top: 0.5rem; color: var(--muted); }
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-  .about-block { background: var(--surface); border: 1px solid var(--border); padding: 1.75rem; }
-  .about-block-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 0.6rem; }
-  .about-block p { font-size: 0.97rem; color: var(--muted); line-height: 1.75; }
-  .about-block strong { color: var(--text); font-weight: 500; }
-  .credential-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-dim2); border: 1px solid rgba(232,255,71,0.2); padding: 0.3rem 0.75rem; font-size: 12px; font-family: var(--mono); color: var(--accent); margin: 0.3rem 0.3rem 0 0; }
-  .credentials-row { margin-top: 1rem; }
-  .contact-block { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
-  .contact-left h2 { margin-bottom: 0.75rem; }
-  .contact-left p { color: var(--muted); font-size: 0.97rem; line-height: 1.75; max-width: 380px; }
-  .discord-card { background: var(--surface); border: 1px solid var(--border); padding: 1.75rem; }
-  .discord-card-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 0.75rem; }
-  .discord-handle { font-family: var(--mono); font-size: 1.1rem; color: var(--accent); font-weight: 700; letter-spacing: 0.04em; margin-bottom: 1.25rem; }
-  .copy-btn { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.6rem 1.25rem; background: transparent; color: var(--text); border: 1px solid var(--border-accent); cursor: pointer; transition: border-color 0.2s, color 0.2s; width: 100%; }
-  .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .footer { border-top: 1px solid var(--border); padding: 2rem 3rem; max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-  .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted2); letter-spacing: 0.06em; }
-  .footer-tag { font-family: var(--mono); font-size: 11px; color: var(--muted2); }
+
+  /* ── VIDEO SECTION ── */
+  .videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .video-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, background 0.2s;
+    overflow: hidden;
+  }
+  .video-card:hover { border-color: var(--border-accent); background: var(--surface2); }
+  .video-embed-wrap {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 */
+    background: #000;
+    cursor: pointer;
+  }
+  .video-embed-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: none;
+  }
+  .video-embed-wrap.playing iframe { display: block; }
+  .video-thumb {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.2s;
+  }
+  .video-embed-wrap.playing .video-thumb { display: none; }
+  .video-play-btn {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .video-embed-wrap.playing .video-play-btn { display: none; }
+  .video-play-icon {
+    width: 52px; height: 52px;
+    background: rgba(10,10,11,0.75);
+    border: 1px solid var(--border-accent);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .video-embed-wrap:hover .video-play-icon {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+  }
+  .video-play-icon svg { width: 18px; height: 18px; fill: var(--text); margin-left: 3px; }
+  .video-embed-wrap:hover .video-play-icon svg { fill: var(--accent); }
+  .video-meta {
+    padding: 1rem 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex: 1;
+  }
+  .video-meta-title {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.35;
+  }
+  .video-meta-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .video-meta-tag {
+    margin-top: 0.5rem;
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    background: var(--accent-dim2);
+    border: 1px solid rgba(232,255,71,0.2);
+    color: var(--accent);
+    padding: 2px 8px;
+    text-transform: uppercase;
+    align-self: flex-start;
+  }
 
   /* Vouches */
   .vouches-grid {
@@ -165,6 +240,23 @@
     text-transform: uppercase;
   }
   .lightbox-close:hover { color: var(--text); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .about-block { background: var(--surface); border: 1px solid var(--border); padding: 1.75rem; }
+  .about-block-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 0.6rem; }
+  .about-block p { font-size: 0.97rem; color: var(--muted); line-height: 1.75; }
+  .about-block strong { color: var(--text); font-weight: 500; }
+  .credential-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-dim2); border: 1px solid rgba(232,255,71,0.2); padding: 0.3rem 0.75rem; font-size: 12px; font-family: var(--mono); color: var(--accent); margin: 0.3rem 0.3rem 0 0; }
+  .credentials-row { margin-top: 1rem; }
+  .contact-block { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+  .contact-left h2 { margin-bottom: 0.75rem; }
+  .contact-left p { color: var(--muted); font-size: 0.97rem; line-height: 1.75; max-width: 380px; }
+  .discord-card { background: var(--surface); border: 1px solid var(--border); padding: 1.75rem; }
+  .discord-card-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 0.75rem; }
+  .discord-handle { font-family: var(--mono); font-size: 1.1rem; color: var(--accent); font-weight: 700; letter-spacing: 0.04em; margin-bottom: 1.25rem; }
+  .copy-btn { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.6rem 1.25rem; background: transparent; color: var(--text); border: 1px solid var(--border-accent); cursor: pointer; transition: border-color 0.2s, color 0.2s; width: 100%; }
+  .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .footer { border-top: 1px solid var(--border); padding: 2rem 3rem; max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted2); letter-spacing: 0.06em; }
 
   @media (max-width: 640px) {
     nav { padding: 1rem 1.5rem; }
@@ -172,6 +264,7 @@
     .about-grid, .contact-block { grid-template-columns: 1fr; }
     h1 { font-size: 2.5rem; }
     .vouches-grid { grid-template-columns: repeat(2, 1fr); }
+    .videos-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -183,6 +276,7 @@
   <span class="nav-logo">Spade</span>
   <ul class="nav-links">
     <li><a href="#work">Work</a></li>
+    <li><a href="#videos">Videos</a></li>
     <li><a href="#vouches">Vouches</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -233,6 +327,66 @@
         <div class="game-card-name">Facility Duels</div>
         <div class="game-stat"><span class="game-stat-label">Visits</span><span class="game-stat-val">15,000</span></div>
       </div>
+    </div>
+  </section>
+
+  <!-- VIDEO EXAMPLES SECTION -->
+  <section id="videos">
+    <div class="section-label">In action</div>
+    <h2>Video Examples</h2>
+    <div class="videos-grid">
+
+      <div class="video-card">
+        <div class="video-embed-wrap" data-id="ks3YRLQ6u7I">
+          <img class="video-thumb" src="https://img.youtube.com/vi/ks3YRLQ6u7I/maxresdefault.jpg" alt="Brainrot Game thumbnail">
+          <div class="video-play-btn">
+            <div class="video-play-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <iframe title="Brainrot Game" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-meta">
+          <div class="video-meta-title">Swim For Brainrots</div>
+          <div class="video-meta-desc">Custom Roblox Game Built for a commision.</div>
+          <span class="video-meta-tag">Creator Game</span>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-embed-wrap" data-id="wWEaGW1NYP8">
+          <img class="video-thumb" src="https://img.youtube.com/vi/wWEaGW1NYP8/maxresdefault.jpg" alt="Gun Game thumbnail">
+          <div class="video-play-btn">
+            <div class="video-play-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <iframe title="Gun Game" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-meta">
+          <div class="video-meta-title">Gun Game</div>
+          <div class="video-meta-desc">Fast-paced gun game mode scripted for a content creator video.</div>
+          <span class="video-meta-tag">Creator Game</span>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-embed-wrap" data-id="kK6Zifverh0">
+          <img class="video-thumb" src="https://img.youtube.com/vi/kK6Zifverh0/maxresdefault.jpg" alt="TDS Game thumbnail">
+          <div class="video-play-btn">
+            <div class="video-play-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <iframe title="TDS Game" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-meta">
+          <div class="video-meta-title">TDS Game</div>
+          <div class="video-meta-desc">Tower Defense Simulator Game I built for fun over 3 days.</div>
+          <span class="video-meta-tag">Creator Game</span>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -291,6 +445,18 @@
 </div>
 
 <script>
+  // Video click-to-play
+  document.querySelectorAll('.video-embed-wrap').forEach(wrap => {
+    wrap.addEventListener('click', () => {
+      if (wrap.classList.contains('playing')) return;
+      const id = wrap.dataset.id;
+      const iframe = wrap.querySelector('iframe');
+      iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+      wrap.classList.add('playing');
+    });
+  });
+
+  // Vouches
   const vouches = [
     { name: 'Chase', src: 'vouches/chase.png' },
     { name: 'Qubit', src: 'vouches/qubit.png' },
@@ -304,15 +470,11 @@
       const slot = document.createElement('div');
       slot.className = 'vouch-slot has-image';
       slot.dataset.name = vouch.name;
-
       const img = document.createElement('img');
       img.src = vouch.src;
       img.alt = 'Vouch from ' + vouch.name;
-
       slot.appendChild(img);
-
       slot.addEventListener('click', () => { openLightbox(vouch.src); });
-
       grid.appendChild(slot);
     });
   }
